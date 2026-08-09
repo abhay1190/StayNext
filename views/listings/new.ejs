@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StayNexa</title>
+</head>
+<body>
+    <h2>Create A  New List</h2>
+    <form action="/listings" method="post">
+        <input type="text" placeholder="Enter Title" name="listing[title]" required>
+        <br><br>
+        <textarea placeholder="Enter Description" name="listing[description]" required></textarea>
+        <br><br>
+        <input type="text" placeholder="Enter Image url/Link" name="listing[image]">
+        <br><br>
+        <input type="number" placeholder="Enter price" name="listing[price]" required>
+        <br><br>
+        <input type="text" placeholder="Enter location" name="listing[location]" required>
+        <br><br>
+        <input type="text" placeholder="Enter Country" name="listing[country]" required>
+        <br><br>
+        <button>Add</button>
+    </form>
+</body>
+</html>
