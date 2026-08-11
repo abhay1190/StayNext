@@ -12,8 +12,8 @@ const listingSchema = new Schema({
     },
     image: {
         type: String,
-        default: "https://www.bing.com/images/search?view=detailV2&ccid=9vQ3p0%2bB&id=4295E6AD0466800D72A127E74CDA465A4E39E0F0&thid=OIP.9vQ3p0-Bda09o7FJfVPpLgHaHa&mediaurl=https%3a%2f%2fgetdrawings.com%2ffree-icon-bw%2fwindows-default-icons-11.png&exph=512&expw=512&q=home+default+image&mode=overlay&FORM=IQFRBA&ck=80D3BB5B162FD5E755F9CE2BA39AE2F0&selectedIndex=0&idpp=serp",
-        set: (v) => v === "" ? "https://www.bing.com/images/search?view=detailV2&ccid=9vQ3p0%2bB&id=4295E6AD0466800D72A127E74CDA465A4E39E0F0&thid=OIP.9vQ3p0-Bda09o7FJfVPpLgHaHa&mediaurl=https%3a%2f%2fgetdrawings.com%2ffree-icon-bw%2fwindows-default-icons-11.png&exph=512&expw=512&q=home+default+image&mode=overlay&FORM=IQFRBA&ck=80D3BB5B162FD5E755F9CE2BA39AE2F0&selectedIndex=0&idpp=serp" : v,
+        default: "https://images.pexels.com/photos/462358/pexels-photo-462358.jpeg?cs=srgb&dl=architectural-design-architecture-blue-sky-462358.jpg&fm=jpg",
+        set: (v) => v === "" ? "https://images.pexels.com/photos/462358/pexels-photo-462358.jpeg?cs=srgb&dl=architectural-design-architecture-blue-sky-462358.jpg&fm=jpg" : v,
     },
     price: {
         type: Number,

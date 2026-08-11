@@ -7,13 +7,17 @@ const port = process.env.PORT || 3000;
 const path = require('path');
 const MONGO_URI = process.env.MONGO_URI;
 const Listing = require('./models/listing');
-const methodOverride = require("method-override")
+const methodOverride = require("method-override");
+const ejsMate = require("ejs-mate");
+
 
 // Middleware
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride("_method"));
+app.engine("ejs",ejsMate);
+app.use(express.static(path.join(__dirname,"/public")));
 
 // Connect to MongoDB
 
