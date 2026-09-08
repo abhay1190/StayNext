@@ -13,6 +13,8 @@ const wrapAsync = require("./utils/WrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 const { ListingSchema } = require("./schema.js");
 
+const listingRoutes = require("./routes/listing.js");
+const reviewRoutes = require("./routes/review.js");
 
 // Middleware
 app.set("view engine", "ejs");
@@ -41,78 +43,8 @@ app.get('/', (req, res) => {
 });
 
 
-const validateListing = (req, res, next) => {
-    let { error } = ListingSchema.validate(req.body);
-    if (error) {
-        let { errMsg } = error.details.map((el) => el.message).join(",");
-        throw new ExpressError(400, errMsg);
-    } else {
-        next();
-    }
-}
-
-
-
-// app.get("/testListing", async (req,res)=>{
-//     let sampleListing = new Listing({
-//         title:"My New Villa",
-//         description:"This is the newly built villa for rent.",
-//         price:9000,
-//         location:"Gurgaon",
-//         country:"India"
-//     });
-//     // await sampleListing.save();
-//     console.log("saved data");
-//     res.send("Successful");
-// });
-
-// Index Route
-
-app.get("/listings", wrapAsync(async (req, res) => {
-    let allListings = await Listing.find({});
-    res.render("listings/index.ejs", { allListings });
-}));
-
-// CREATE NEW Listing ROUTE
-app.get("/listings/new", (req, res) => {
-    res.render("listings/new.ejs");
-});
-
-// Show Route
-app.get("/listings/:id", wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    let listing = await Listing.findById(id);
-    res.render("listings/show.ejs", { listing });
-}));
-
-// Create Route
-app.post("/listings", validateListing, wrapAsync(async (req, res, next) => {
-    const newListing = new Listing(req.body.listing);
-    await newListing.save();
-    res.redirect("/listings");
-}));
-
-
-// Edit Route
-app.get("/listings/:id/edit", wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    const listing = await Listing.findById(id);
-    res.render("listings/edit.ejs", { listing });
-}));
-
-// Update Route
-app.put("/listings/:id", validateListing, wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    await Listing.findByIdAndUpdate(id, { ...req.body.listing });
-    res.redirect(`/listings/${id}`);
-}));
-
-// Delete Route
-app.delete("/listings/:id", wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    await Listing.findByIdAndDelete(id);
-    res.redirect("/listings");
-}));
+app.use("/listings", listingRoutes);
+app.use("/listings", reviewRoutes);
 
 // if the route doesnot matches
 app.all("/{*splat}", (req, res, next) => {
