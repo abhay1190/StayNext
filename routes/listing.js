@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const wrapAsync = require("../utils/WrapAsync.js");
 const ExpressError = require("../utils/ExpressError.js");
-const { ListingSchema, ReviewSchema } = require("../schema.js");
+const { ListingSchema } = require("../schema.js");
 const Listing = require('../models/listing');
 
 const validateListing = (req, res, next) => {
@@ -62,7 +62,6 @@ router.put("/:id", validateListing, wrapAsync(async (req, res) => {
 router.delete("/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
     let deletedListing = await Listing.findByIdAndDelete(id);
-    console.log("Deleted Listing: ", deletedListing);
     res.redirect("/listings");
 }));
 

@@ -6,12 +6,9 @@ const mongoose = require('mongoose');
 const port = process.env.PORT || 3000;
 const path = require('path');
 const MONGO_URI = process.env.MONGO_URI;
-const Listing = require('./models/listing');
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-const wrapAsync = require("./utils/WrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
-const { ListingSchema } = require("./schema.js");
 
 const listingRoutes = require("./routes/listing.js");
 const reviewRoutes = require("./routes/review.js");
@@ -25,7 +22,6 @@ app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
 // Connect to MongoDB
-
 main().then(() => {
     console.log("Connected to MongoDB");
 }).catch((err) => {
@@ -36,15 +32,13 @@ async function main() {
     await mongoose.connect(MONGO_URI);
 }
 
-
 // Routes
 app.get('/', (req, res) => {
     res.send("Root route is working!");
 });
 
-
 app.use("/listings", listingRoutes);
-app.use("/listings", reviewRoutes);
+app.use("/listings/:id/reviews", reviewRoutes);
 
 // if the route doesnot matches
 app.all("/{*splat}", (req, res, next) => {
@@ -60,4 +54,3 @@ app.use((err, req, res, next) => {
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
-
