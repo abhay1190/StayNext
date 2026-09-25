@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Review = require('./review.js');
+const { string } = require('joi');
 
 const listingSchema = new Schema({
     title: {
@@ -12,9 +13,8 @@ const listingSchema = new Schema({
         required: true
     },
     image: {
-        type: String,
-        default: "https://images.pexels.com/photos/462358/pexels-photo-462358.jpeg?cs=srgb&dl=architectural-design-architecture-blue-sky-462358.jpg&fm=jpg",
-        set: (v) => v === "" ? "https://images.pexels.com/photos/462358/pexels-photo-462358.jpeg?cs=srgb&dl=architectural-design-architecture-blue-sky-462358.jpg&fm=jpg" : v,
+        url: { type: String, },
+        filename: { type: String, }
     },
     price: {
         type: Number,

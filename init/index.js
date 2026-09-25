@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const initData = require("./data.js");
+// const initData = require("./data.js");
+const initData = require("./newdata.js");
 const Listing = require("../models/listing.js");
 const MONGO_URI = "mongodb://localhost:27017/staynexa"
 
